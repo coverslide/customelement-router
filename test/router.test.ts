@@ -1,12 +1,12 @@
 import { beforeAll, beforeEach, describe, expect, test, vi } from "vitest";
 import {
-  registerRouterElements,
+  registerElements,
   updateRoute,
   routeListener,
 } from "../src/index.js";
 
 beforeAll(() => {
-  registerRouterElements();
+  registerElements();
 });
 
 beforeEach(() => {
@@ -15,9 +15,9 @@ beforeEach(() => {
   window.history.replaceState(null, "", "/");
 });
 
-describe("registerRouterElements", () => {
+describe("registerElements", () => {
   test("is idempotent", () => {
-    expect(() => registerRouterElements()).not.toThrow();
+    expect(() => registerElements()).not.toThrow();
   });
 });
 
@@ -123,7 +123,7 @@ describe("router", () => {
 
 describe("namespaced router", () => {
   test("renders elements in a custom namespace", () => {
-    registerRouterElements("myapp");
+    registerElements("myapp");
     document.body.innerHTML = `
       <myapp-router>
         <myapp-route route="/" title="Home"><h1 id="ns-home">Home</h1></myapp-route>

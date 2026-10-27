@@ -1,6 +1,9 @@
 import CustomElement from "@coverslide/customelement";
 
 class Router extends CustomElement {
+  static localName = "router";
+  static template = "<slot></slot>";
+
   connectedCallback (): void {
     super.connectedCallback();
     const current = window.location.pathname;

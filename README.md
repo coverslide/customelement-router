@@ -16,8 +16,8 @@ This package is ESM-only.
 
 ```typescript
 // Import and register the router components
-import { registerRouterElements } from "@coverslide/customelement-router";
-registerRouterElements();
+import { registerElements } from "@coverslide/customelement-router";
+registerElements();
 
 // Use the router in your HTML or in a template
 const template = `
@@ -68,13 +68,14 @@ Modified clicks (such as Ctrl/Cmd-click) are left to the browser.
 
 ### Namespacing
 
-Pass a namespace to `registerRouterElements` to register a second, independent
-set of router elements:
+Pass a namespace to `registerElements` to register a second, independent set of
+router elements. If another package also exports `registerElements`, alias it at
+the import site:
 
 ```typescript
-import { registerRouterElements } from "@coverslide/customelement-router";
+import { registerElements as registerAppRouter } from "@coverslide/customelement-router";
 
-registerRouterElements("myapp");
+registerAppRouter("myapp");
 ```
 
 Then use `<myapp-router>`, `<myapp-route>`, and `<myapp-redirect>` in your
@@ -86,13 +87,13 @@ class before registering:
 
 ```typescript
 import CustomElement from "@coverslide/customelement";
-import { registerRouterElements } from "@coverslide/customelement-router";
+import { registerElements } from "@coverslide/customelement-router";
 
 CustomElement.defaultNamespace = "myapp";
-registerRouterElements(CustomElement.defaultNamespace);
+registerElements(CustomElement.defaultNamespace);
 ```
 
-`registerRouterElements` has its own explicit default of `"router"`, so other
+`registerElements` has its own explicit default of `"router"`, so other
 libraries changing the global default cannot silently rename the router tags.
 Pass the namespace explicitly when you want the router to share an application
 namespace.
@@ -104,27 +105,27 @@ CustomElement.conflicts(["router", "route", "redirect"], "myapp");
 // e.g. ["myapp-router"] when that tag is already taken
 ```
 
-`registerRouterElements` throws a `CustomElementRegistrationError` before
+`registerElements` throws a `CustomElementRegistrationError` before
 defining anything if a tag is already taken.
 
 ## API
 
 - `updateRoute(element, path)`: Programmatically navigate to a path
 - `routeListener(event)`: Event listener for handling link clicks with route attribute
-- `registerRouterElements(namespace?)`: Register the router elements for a namespace; safe to call more than once
-- `registerRouterElements()` defaults to `"router"`; pass `"myapp"` for `myapp-router`, `myapp-route`, and `myapp-redirect`
+- `registerElements(namespace?)`: Register the router elements for a namespace; safe to call more than once. This is the package's common registration export.
+- The default namespace is `"router"`; pass `"myapp"` for `myapp-router`, `myapp-route`, and `myapp-redirect`
 
 ## Example
 
 ```typescript
 import {
-  registerRouterElements,
+  registerElements,
   updateRoute,
   routeListener,
 } from "@coverslide/customelement-router";
 
 // Register the router components
-registerRouterElements();
+registerElements();
 
 // Create a router programmatically
 const router = document.createElement("router-router");

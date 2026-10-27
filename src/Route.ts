@@ -1,6 +1,9 @@
 import CustomElement from "@coverslide/customelement";
 
 class Route extends CustomElement {
+  static localName = "route";
+  static template = "<slot></slot>";
+
   childContent: DocumentFragment;
   active: boolean = false;
 
