@@ -1,16 +1,28 @@
 {
-  "name": "@cover-slide/customelement-router",
+  "name": "@coverslide/customelement-router",
   "version": "1.0.0",
   "description": "A simple custom element-based router for web applications",
+  "author": "Richard Hoffman <coverslide@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
   "files": [
     "dist"
   ],
+  "sideEffects": false,
   "scripts": {
     "build": "tsc",
-    "test": "jest",
-    "prepublishOnly": "npm run build",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "prepare": "npm run build"
   },
   "keywords": [
@@ -21,29 +33,26 @@
     "routing",
     "spa"
   ],
-  "author": "rhoffman",
-  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://gitea.csli.me/richard/customelement-router.git"
+    "url": "git+https://github.com/coverslide/customelement-router.git"
+  },
+  "homepage": "https://github.com/coverslide/customelement-router#readme",
+  "bugs": {
+    "url": "https://github.com/coverslide/customelement-router/issues"
   },
   "dependencies": {
-    "@cover-slide/customelement": "1.0.0"
+    "@coverslide/customelement": "^2.4.0"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.11",
-    "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0",
-    "ts-jest": "^29.1.1",
-    "typescript": "^5.3.3"
-  },
-  "peerDependencies": {
-    "@cover-slide/customelement": "^1.0.0"
+    "jsdom": "^27.4.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.12"
   },
   "publishConfig": {
     "access": "public"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=20.19.0"
   }
 }

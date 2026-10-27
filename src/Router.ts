@@ -1,4 +1,4 @@
-import CustomElement from "@cover-slide/customelement";
+import CustomElement from "@coverslide/customelement";
 
 class Router extends CustomElement {
   connectedCallback (): void {
@@ -22,7 +22,7 @@ class Router extends CustomElement {
   updateRoutes (newRoute: string): void {
     let foundRoute = false;
     let defaultRoute: Element | null = null;
-    for (const route of this.querySelectorAll("router-route")) {
+    for (const route of this.querySelectorAll(this.tag("route"))) {
       const routePath = route.getAttribute("route");
       if (routePath === newRoute) {
         foundRoute = true;
