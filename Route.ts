@@ -1,0 +1,48 @@
+import CustomElement from "@cover-slide/customelement";
+
+class Route extends CustomElement {
+  childContent: DocumentFragment;
+  active: boolean = false;
+
+  constructor () {
+    super();
+    this.childContent = new DocumentFragment();
+
+    const childrenToRemove: ChildNode[] = [];
+    for (const child of this.childNodes) {
+      childrenToRemove.push(child);
+    }
+    for (const child of childrenToRemove) {
+      this.removeChild(child);
+      this.childContent.appendChild(child);
+    }
+  }
+
+  connectedCallback (): void {
+    this.innerHTML = "";
+    this.addEventListener("update-route", ((event: CustomEvent) => {
+      const route = this.getAttribute("route");
+      if (event.detail !== route) {
+        this.active = false;
+        this.innerHTML = "";
+        return;
+      }
+      if (!this.active) {
+        this.active = true;
+        this.appendChild(this.childContent.cloneNode(true));
+        if (this.hasAttribute("title")) {
+          document.title = this.getAttribute("title")!;
+        }
+      }
+    }) as EventListener);
+
+    this.dispatchEvent(
+      new CustomEvent("route-ready", {
+        detail: this.getAttribute("route"),
+        bubbles: true,
+      }),
+    );
+  }
+}
+
+export default Route;

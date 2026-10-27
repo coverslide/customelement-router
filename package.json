@@ -1,0 +1,49 @@
+{
+  "name": "@cover-slide/customelement-router",
+  "version": "1.0.0",
+  "description": "A simple custom element-based router for web applications",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "prepublishOnly": "npm run build",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "router",
+    "web-components",
+    "custom-elements",
+    "webcomponents",
+    "routing",
+    "spa"
+  ],
+  "author": "rhoffman",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitea.csli.me/richard/customelement-router.git"
+  },
+  "dependencies": {
+    "@cover-slide/customelement": "1.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.11",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.3.3"
+  },
+  "peerDependencies": {
+    "@cover-slide/customelement": "^1.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}
