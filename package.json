@@ -1,6 +1,6 @@
 {
   "name": "@coverslide/customelement-router",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A simple custom element-based router for web applications",
   "author": "Richard Hoffman <coverslide@gmail.com>",
   "license": "MIT",

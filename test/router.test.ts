@@ -141,6 +141,42 @@ describe("namespaced router", () => {
   });
 });
 
+describe("programmatic routes", () => {
+  test("renders route content added after construction", () => {
+    registerElements("programmatic");
+
+    const router = document.createElement("programmatic-router");
+    const route = document.createElement("programmatic-route");
+    route.setAttribute("route", "/");
+    route.innerHTML = "<h1 id=\"programmatic-content\">Programmatic</h1>";
+    router.appendChild(route);
+    document.body.appendChild(router);
+
+    expect(document.querySelector("#programmatic-content")).not.toBeNull();
+  });
+});
+
+describe("reconnect", () => {
+  test("restores an active route after reconnect", () => {
+    registerElements("reconnect");
+
+    document.body.innerHTML = `
+      <reconnect-router>
+        <reconnect-route route="/"><h1 id="reconnect-content">Hello</h1></reconnect-route>
+      </reconnect-router>
+    `;
+
+    const route = document.querySelector("reconnect-route")!;
+
+    expect(document.querySelector("#reconnect-content")).not.toBeNull();
+
+    route.remove();
+    document.querySelector("reconnect-router")!.appendChild(route);
+
+    expect(document.querySelector("#reconnect-content")).not.toBeNull();
+  });
+});
+
 describe("redirect", () => {
   test("navigates to its path when connected", () => {
     document.body.innerHTML = `<router-redirect path="/target"></router-redirect>`;

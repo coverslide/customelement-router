@@ -4,22 +4,32 @@ class Router extends CustomElement {
   static localName = "router";
   static template = "<slot></slot>";
 
+  private readonly handleRouteChange = (event: Event): void => {
+    this.updateRoutes((event as CustomEvent<string>).detail);
+  };
+
+  private readonly handleRouteReady = (): void => {
+    this.updateRoutes(window.location.pathname);
+  };
+
+  private readonly handlePopState = (): void => {
+    this.updateRoutes(window.location.pathname);
+  };
+
+  constructor () {
+    super();
+    this.addEventListener("route-change", this.handleRouteChange);
+    this.addEventListener("route-ready", this.handleRouteReady);
+  }
+
   connectedCallback (): void {
     super.connectedCallback();
-    const current = window.location.pathname;
-    this.updateRoutes(current);
+    this.updateRoutes(window.location.pathname);
+    window.addEventListener("popstate", this.handlePopState);
+  }
 
-    this.addEventListener("route-change", ((event: CustomEvent) => {
-      this.updateRoutes(event.detail);
-    }) as EventListener);
-
-    this.addEventListener("route-ready", ((event: CustomEvent) => {
-      this.updateRoutes(window.location.pathname);
-    }) as EventListener);
-
-    window.addEventListener("popstate", (_: PopStateEvent) => {
-      this.updateRoutes(window.location.pathname);
-    });
+  disconnectedCallback (): void {
+    window.removeEventListener("popstate", this.handlePopState);
   }
 
   updateRoutes (newRoute: string): void {
